@@ -1,7 +1,7 @@
 let currentsong = new Audio();
 
 async function getSongs() {
-    let a = await fetch("/songs/");
+    let a = await fetch("https://spotify-clone-git-main-rajanya01s-projects.vercel.app//songs/");
     let response = await a.text();
 
     let div = document.createElement("div");
