@@ -4,7 +4,7 @@ async function getSongs() {
     // Base URL of your GitHub repository's raw content
     let baseURL = "https://raw.githubusercontent.com/Rajanya01/spotify-clone/main/songs/";
 
-    // List of song files manually added (since GitHub doesn't provide directory listings)
+    // List of song files
     let songs = [
         "APT.mp3",
         "aura.mp3",
@@ -18,9 +18,13 @@ async function getSongs() {
         "shape of you.mp3"
     ];
 
-    // Construct full URLs for the songs
-    return songs.map(song => baseURL + song);
+    // Construct full URLs for each song and store them along with the song name
+    return songs.map(song => ({
+        name: song, // Keep the song name
+        url: baseURL + encodeURIComponent(song) // Full URL for playback
+    }));
 }
+
 
 
 async function main() {
