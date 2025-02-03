@@ -1,24 +1,11 @@
 let currentsong = new Audio();
 
 async function getSongs() {
-    let a = await fetch("https://spotify-clone-git-main-rajanya01s-projects.vercel.app//songs/");
-    let response = await a.text();
-
-    let div = document.createElement("div");
-    div.innerHTML = response;
-
-    let as = div.getElementsByTagName("a");
-    let songs = [];
-
-    for (let i = 0; i < as.length; i++) {
-        const element = as[i];
-        if (element.href.endsWith(".mp3")) {
-            songs.push(decodeURIComponent(element.href.split("/songs/")[1]));
-        }
-    }
-
+    let response = await fetch("/songs/songs.json");  // Fetch the songs.json file
+    let songs = await response.json();  // Convert it to an array
     return songs;
 }
+
 
 async function main() {
     let songs = await getSongs();
