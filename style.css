@@ -179,7 +179,7 @@ nav .login:hover {
 }
 
 .right {
-    width: 80vw;
+    width: 1080px;
     background-color: rgb(19, 19, 19);
     margin: 15px;
     border-radius: 20px;
@@ -394,7 +394,7 @@ footer .playbar {
     font-size: 15px;
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1100px) {
     nav .signup {
         right: 160px;
         top: 30px;
@@ -456,8 +456,10 @@ footer .playbar {
     }
 
     .right {
-        width: 100%;
-        height: 650px;
+        width: 1080px;
+        height: auto;
+        min-height: 650px;
+        margin: 10px;
     }
 
     footer .playbar {
@@ -474,7 +476,7 @@ footer .playbar {
     .hamburger {
         display: block;
         position: absolute;
-        margin-left: 45px;
+        margin-left: 30px;
         top: 85px;
     }
 
@@ -486,11 +488,136 @@ footer .playbar {
     .song-lists ul li .playnow :nth-child(2) {
         right: 50px;
     }
-    
+
     .leftclose {
         display: block;
     }
 
 }
 
-@media screen and (max-width: 480px) {}
+@media screen and (max-width: 582px) {
+    nav .signup {
+        right: 60px;
+        top: 30px;
+    }
+
+    nav {
+        height: 120px;
+    }
+
+    nav .logo {
+        position: relative;
+        bottom: 20px;
+    }
+
+    nav .login {
+        right: -100px;
+        padding: 10px 15px;
+        border-radius: 15px;
+        width: 70px;
+        top: 22px;
+    }
+
+    .search button {
+        background-color: rgb(42, 42, 42);
+        position: relative;
+        right: 5px;
+        top: -18px;
+    }
+
+    nav .logo {
+        margin: 25px;
+        width: 45px;
+        height: 41px;
+    }
+
+    nav .search input {
+        position: relative;
+        top: 45px;
+        right: 70px;
+        width: 350px;
+    }
+
+    .searchlogo {
+        left: -30px;
+        top: 45px;
+    }
+
+    nav {
+        border: 1px solid rgb(31, 31, 31);
+    }
+
+    .left {
+        position: absolute;
+        left: -100%;
+        z-index: 10;
+        width: 275px;
+        height: 900px;
+        transition: ease 0.6s;
+    }
+
+
+    .right {
+        position: absolute;
+        width: 120vw;
+        height: 100vh;
+        padding: 15px;
+        box-sizing: border-box;
+    }
+
+
+    footer .playbar {
+        background-color: rgb(25, 29, 35);
+        width: 80%;
+        border-radius: 20px;
+        bottom: 20px;
+    }
+
+    .seekbar {
+        width: 70%;
+    }
+
+    .hamburger {
+        display: block;
+        position: absolute;
+        margin-left: 30px;
+        top: 85px;
+    }
+
+    .song-lists span {
+        right: 50px;
+        width: 60px;
+    }
+
+    .song-lists ul li .playnow :nth-child(2) {
+        right: 50px;
+    }
+
+    .leftclose {
+        display: block;
+    }
+}
+
+@media  screen and (max-width: 420px) {
+     .right {
+        width: 170vw;
+        height: 1100px;
+     }
+
+     nav .signup {
+        right: -130px;
+     }
+
+     nav .login {
+        right: -250px;
+     }
+
+     nav .search input {
+        right: 30px;
+     }
+     
+     .searchlogo {
+        left: 12px;
+     }
+
+}
