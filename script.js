@@ -74,17 +74,23 @@ function main() {
 
     function togglePause() {
         let mainPlayButton = document.querySelector(".pausebtn");
-
+    
         mainPlayButton.addEventListener("click", () => {
+            if (!currentPlayingButton) return; 
+    
             if (currentsong.paused) {
                 currentsong.play();
-                updateIcons(currentPlayingButton, "pause");
+                mainPlayButton.src = "images/pause.svg"; 
+                currentPlayingButton.src = "images/pause.svg"; 
             } else {
                 currentsong.pause();
-                updateIcons(currentPlayingButton, "play");
+                mainPlayButton.src = "images/play.svg"; 
+                currentPlayingButton.src = "images/play.svg"; 
             }
         });
     }
+    
+    
 
     togglePause();
 
@@ -119,23 +125,52 @@ function main() {
     function seekbar() {
         const seekbarElement = document.querySelector(".seekbar");
         const circleElement = document.querySelector(".circle");
-
+    
+        let isDragging = false;
+        let wasPlaying = false; 
+    
         currentsong.addEventListener("timeupdate", () => {
-            const currentTime = currentsong.currentTime;
-            const duration = currentsong.duration;
-
-            const percentage = (currentTime / duration) * 100;
-            circleElement.style.left = percentage + "%";
-            document.querySelector(".songtime").innerHTML = `${secondsToMinutesSecond(currentTime)}/${secondsToMinutesSecond(duration)}`;
+            if (!isDragging && currentsong.duration) {
+                const percentage = (currentsong.currentTime / currentsong.duration) * 100;
+                circleElement.style.left = `${percentage}%`;
+                document.querySelector(".songtime").innerHTML = `${secondsToMinutesSecond(currentsong.currentTime)}/${secondsToMinutesSecond(currentsong.duration)}`;
+            }
         });
-
+    
         seekbarElement.addEventListener("click", (event) => {
             const seekbarWidth = seekbarElement.offsetWidth;
             const clickPosition = event.offsetX;
             const newTime = (clickPosition / seekbarWidth) * currentsong.duration;
             currentsong.currentTime = newTime;
         });
-    }
+    
+        circleElement.addEventListener("mousedown", (event) => {
+            isDragging = true;
+            wasPlaying = !currentsong.paused; 
+            currentsong.pause(); 
+    
+            document.addEventListener("mousemove", onDrag);
+            document.addEventListener("mouseup", () => {
+                isDragging = false;
+                document.removeEventListener("mousemove", onDrag);
+                if (wasPlaying) currentsong.play(); // Resume only if it was playing before
+            });
+        });
+    
+        function onDrag(event) {
+            if (!isDragging) return;
+    
+            const seekbarRect = seekbarElement.getBoundingClientRect();
+            let newLeft = event.clientX - seekbarRect.left;
+            if (newLeft < 0) newLeft = 0;
+            if (newLeft > seekbarRect.width) newLeft = seekbarRect.width;
+    
+            const newTime = (newLeft / seekbarRect.width) * currentsong.duration;
+            currentsong.currentTime = newTime;
+    
+            circleElement.style.left = `${(newLeft / seekbarRect.width) * 100}%`;
+        }
+    }    
 
     function secondsToMinutesSecond(seconds) {
         const minutes = Math.floor(seconds / 60);
